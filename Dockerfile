@@ -15,6 +15,9 @@ RUN echo "I am running on $BUILDPLATFORM, building for $TARGETPLATFORM"
 
 COPY requirements.txt requirements.txt
 RUN python3.8 -m pip install -r requirements.txt
+RUN apt-get update \
+        && apt-get install libportaudio2 libportaudiocpp0 portaudio19-dev libsndfile1-dev -y \
+        && python3.8 -m pip install pyaudio
 COPY . .
 
 CMD ["python3.8", "main.py"]
